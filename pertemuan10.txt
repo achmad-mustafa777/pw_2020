@@ -1,0 +1,25 @@
+pertemuan 10 
+1. latihan 1
+-> membuat tabel datanya
+-> bagaimana cara mengambil datanya di databases
+    1. menghubungkan html dengan php
+    2. melakukan koneksi databases di php
+    3. melakukan query datanya di databases
+    4. mengubah data yang diquery menjadi array agar bisa dibaca
+    5. menampilkan semua data yang sudah diubah dalam bentuk array assosiatif dengan looping while
+    6. menampung data ke variabel mahasiswa
+    7. membuat looping foreach di tabel untuk menggenerd data dari databases
+
+2. latihan 2
+-> membuat file function.php untuk menampung semua logic
+    1. membuat fungsi koneksi yang akan mengkoneksikan ke databases
+    2. membuat fungsi query
+
+3. latihan 3
+-> membuat tidak menampilkan banyak data agar lebih mudah mengaturnya
+    1. cuman menampilkan gambar, nama, dan aksinya berupa detail
+    2. membuat halaman detail.php 
+        -> buat dulu tampilannya dengan html
+    3. menampilkan data sesuai dengan id yang dikrimkan 
+        -> ambil id dari url
+        -> query data mahasiswa berdasarkan id
