@@ -1,0 +1,64 @@
+DELETE & UPDATE DATA
+
+DELETE
+
+-> buat link dibagian tombol hapus ke halaman hapus.php & kirimkan id user yang mau dihapus
+-> buat file hapus.php
+-> difile hapus.php tangkap id yang dikirim dari detail.php yang melalui url
+-> buat logika dengan fungsi hapus untuk menghasilkan nilai true
+
+  if(hapus($id) > 0)
+
+-> masuk ke halaman function.php untuk membuat fungsi hapus
+-> didalam fungsi hapus terdiri dari:
+  - menghubungkan koneksi
+  - membuat query delete dan menambahkan fungsi untuk mematikan program jika terjadi koneksi error
+
+    die(mysqli_error($conn));
+
+  - terakhir tambahkan nilai return untuk menghasilkan nilai. Jika angka 1 artinya sukses terkoneksi, jika 0 tidak ada koneksi, jika -1 koneksi error
+
+    return mysqli_affected_rows($conn);
+
+-> tambahkan konfirmasi hapus dengan javascript dibagian hapus pada file diteil.php
+-> tambahkan logika pengecekan dibagian hapus.php agar tidak bisa diakses tanpa mengirimkan id
+
+  if(!isset($_GET['id)) {
+    header("Location: index.php");
+    exit;
+  }
+
+
+UPDATE DATA
+
+-> logikanya dimulai dari file detail.php dibagian ubah data
+-> menambahkan link dibagain ubah dengan alamat ubah.php dan mengirimkan idnya
+-> dihalaman ubah mirip isinya dengan halaman tambah.php, jadi cukup copy halaman tambah.php ke halaman  ubah.php
+-> kita tangkap idnya dihalaman ubah.php dan lakukan query seluruh mahasiswanya
+-> masuk kebagaian inputnya, masukan hasil dari query mahasiswanya dengan menghubungkan atribut value
+
+  value="<?= $m['nama']; ?>"
+
+-> tambahkan inputan dengan name = id lalu typenya hidden sebagai penunjang fungsi ubah di function.php
+-> beralih ke function.php
+-> buat fungsi ubah yang mirip dengan fungsi tambah
+-> didalam fungsi ubah terdiri dari :
+  - menghubungkan koneksi
+  - menangkap data yang dikirim dari url menggunakan $_GET, kemudian dimasukan kedalam variabel masing2
+  - membuat query UPDATEnya
+
+    "UPDATE mahasiswa SET 
+     Nama = '$nama',
+     nrp = '$nrp',
+     jurusan = '$jurusan',
+     email = '$email',
+     gambar = '$gambar'
+     WHERE id = $id";
+
+-> agar tidak bisa diakses tanpa id maka tambahkan logika pengecekan dibagian ubah.php dan langsung dialihkan ke index.php
+
+     if(!isset($_GET['id)) {
+    header("Location: index.php");
+    exit;
+  }
+
