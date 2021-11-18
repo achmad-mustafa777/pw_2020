@@ -62,3 +62,39 @@ UPDATE DATA
     exit;
   }
 
+
+SEARCHING DATA
+
+STEP SATU MEMBUAT KOLOM PENCARIAN
+-> membuat form cari dibawah tambah data
+-> menambahkan tulisan didalam kolom cari
+-> mematikan autocomplit
+-> mengaktifkan automatis pencarian ketika masuk ke halaman index.php
+
+STEP DUA BUAT PENCARIAN BERDASARKAN NAMA
+-> ketika tombol cari diklik, maka ambil data keywordnya, lalu cari berdasarkan keyword yang dicari
+-> ketika tombol cari diklik, maka mengaktifkan fungsi cari yang hasilnya akan dimasukan ke dalam variabel mahasiswa yang akan menimpa query mahasiswa semua data
+-> bikin fungsi cari di dalam file function.php 
+-> didalam fungsi cari terdiri dari:
+  - menghubungkan koneksi
+  - buat querynya
+
+    "select * from mahasiswa where 
+      Nama like '%$keyword%' or
+      nrp like '%$keyword%'";
+
+  - jalankan fungsi querynya
+  - buat penampungan array kosong
+  - lakukan looping menggunakan fungsi mysqli_fetch_assoc() yang akan mengembalikan nilai array assosiatif
+  - kemudian tampung array assosiatifnya di variabel array kosong
+  - kembalikan nilai array assosiatif yang ada di variabel penampungan array
+
+-> tambahkan kondisi pengecekan dibawah tabel untuk memberi tahu user jika pencarian tidak ditemukan
+
+    <?php if (empty($mahasiswa)) : ?>
+      <tr>
+        <td colspan="4">
+          <p style="color:red; font-style:italic ">Data mahasiswa tidak ditemukan!!</p>
+        </td>
+      </tr>
+    <?php endif; ?>
