@@ -1,0 +1,29 @@
+LOGIN 
+-> buat form loginnya
+-> buat logikanya diatas form html
+  - jalankan logikanya ketika tombol login diklik
+  - jalankan fungsi loginnya
+-> buat fungsi login di halaman function.php 
+-> function login terdiri dari :
+  - menghubungkan koneksi
+  - menangkap username yang diketikan user
+  - menangkap password yang diketikan user
+  - buat logika loginnya
+
+-> tampung fungsi login ke dalam variabel $login dihalaman login.php untuk menampilkan pesan jika error
+
+SESSION
+-> tambahkan SESSION agar tidak sembarangan mengakses ke semua halaman
+-> set SESSION di function login & tambahkan session_start() di halaman login.php 
+-> tambahkan session_start diseluruh halaman dan juga logika pengecekannya
+
+  session_start();
+
+  if (!isset($_SESSION['login'])) {
+  header('Location: login.php');
+  }
+
+-> tambahkan juga logika pengecekannya di halaman login.php agar tidak terjadi 2x login
+-> tambahkan logout di index.php diatas daftar mahasiswa dengan menambahkan link yang ditujukan ke halaman logout.php 
+-> dihalaman logout.php kita lakukan bersihkan SESSIONnya
+-> kemudian arahkan halamannya ke halaman login.php 
