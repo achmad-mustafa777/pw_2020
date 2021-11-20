@@ -49,6 +49,8 @@ if (isset($_POST['login'])) {
       </li>
     </ul>
   </form>
+  <br><br>
+  <a href="registrasi.php">Registrasi / New User</a>
 
 </body>
 

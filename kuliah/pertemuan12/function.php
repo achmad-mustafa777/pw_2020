@@ -100,17 +100,70 @@ function login($data)
   $username = htmlspecialchars($data['username']);
   $password = htmlspecialchars($data['password']);
 
-  if (query("SELECT * FROM users WHERE username = '$username' && password = '$password'")) {
+  if ($user = query("SELECT * FROM users WHERE username = '$username'")) {
+    if (password_verify($password, $user['password'])) {
+      //set session
+      $_SESSION['login'] = true;
 
-    //set session
-    $_SESSION['login'] = true;
-
-    header("Location: index.php");
-    exit;
-  } else {
-    return [
-      'error' => true,
-      'pesan' => 'Username / Password tidak benar'
-    ];
+      header("Location: index.php");
+      exit;
+    }
   }
+
+  return [
+    'error' => true,
+    'pesan' => 'Username / Password tidak benar / belum registrasi'
+  ];
+}
+
+
+function registrasi($data)
+{
+  $conn = koneksi();
+
+  $username = htmlspecialchars($data['username']);
+  $password1 = mysqli_real_escape_string($conn, $data['password1']);
+  $password2 = mysqli_real_escape_string($conn, $data['password2']);
+
+  if (empty($username) || empty($password1) || empty($password2)) {
+    echo "<script>
+          alert('username / password tidak boleh kosong');
+          document.location.href = 'registrasi.php';
+          </script>";
+
+    return false;
+  }
+
+  if (query("SELECT * FROM users WHERE username = '$username'")) {
+    echo "<script>
+          alert('username sudah terdaftar di databases');
+          document.location.href = 'registrasi.php';
+          </script>";
+
+    return false;
+  }
+
+  if ($password1 !== $password2) {
+    echo "<script>
+          alert('password tidak sesuai dengan konfirmasi');
+          document.location.href = 'registrasi.php';
+          </script>";
+
+    return false;
+  }
+
+  if (strlen($password1) <= 3) {
+    echo "<script>
+          alert('minimal password 3 digit');
+          document.location.href = 'registrasi.php';
+          </script>";
+
+    return false;
+  }
+
+  $passwordBaru = password_hash($password1, PASSWORD_DEFAULT);
+  $query = "INSERT INTO users VALUES (null, '$username', '$passwordBaru')";
+  mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+  return mysqli_affected_rows($conn);
 }

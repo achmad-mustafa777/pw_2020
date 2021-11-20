@@ -27,3 +27,38 @@ SESSION
 -> tambahkan logout di index.php diatas daftar mahasiswa dengan menambahkan link yang ditujukan ke halaman logout.php 
 -> dihalaman logout.php kita lakukan bersihkan SESSIONnya
 -> kemudian arahkan halamannya ke halaman login.php 
+
+REGISTRARI
+-> tambahkan link di login.php yang diarahakan ke halaman file registrasi
+-> buat form registrasi di halaman registrasi.php 
+-> jalankan logicnya jika tombol registrasi diklik maka jalankan fungsi registrasi
+-> buat fungsi registrasi di halaman function.php yang terdiri dari :
+  - buat koneksi
+  - tangkap data yang dikirim melalui $_POST kemudian masukan kedalam variabel
+  - untuk keamanan menghindari dari serangan sql injection atau serangan dari script jahat kita menggunakan
+
+    mysqli_real_escape_string($conn, $data['password1']);
+
+  - lakukan serangkaian pengecekan :
+    1. jika username / password yang kosong
+    2. jika username sudah ada di databases
+    3. jika konfirmasi password tidak sesuai
+    4. jika password <= 3
+
+  - jika username & password sudah sesuai lakukan encrypsi password
+
+    password_hash($password1, PASSWORD_DEFAULT);
+    // parameter pertama adalah string yang diacak
+    // parameter kedua adalah algoritma encrypsi apa yang mau digunakan
+
+  - lakukan insert data ke databases
+  - return mysqli_affected_rows($conn);
+
+-> tambahkan kondisi dihalaman registrasi untuk memberitahu user jika registrasinya sukses
+-> kembali ke function.php perbaiki bagian fungsi loginnya dibagian pengecekannya
+  - cek dulu usernamenya
+  - cek dulu password dengan menggunakan
+
+    password_verify($password, $user['password'])
+    // parameter pertama adalah string yang akan dibandingkan
+    // parameter kedua adalah string yang sudah diacak menggunakan hash yang sudah disimpan dalam databases
