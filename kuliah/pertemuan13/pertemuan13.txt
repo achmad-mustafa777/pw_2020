@@ -1,0 +1,59 @@
+Ajax Live Search
+
+-> tambahkan class pada form pencarian dibagian input dan tombol cari untuk memudahka menghubungkan dengan javascript
+-> tambahkan class dan bungkus dengan <div> pada bagian tabel yang akan diganti sesuai dengan pencarian
+-> diakhir body tambahkan script yang linknya diarahkan ke file javascript
+-> yang akan dilakukan sekarang adalah menangkap ketiga element yang diberi atribut class untuk melakukan event hendler di file javascript yaitu script.js
+-> buat variaberl di file script.js untuk menangkap ke tiga element class
+-> tambahkan sebuah event pada class keyword untuk melakukan sesuatu seperti contoh dibawah ini:
+
+    //testing saja
+    keyword.addEventListener('keyup',function(){
+      console.log('ok)
+    })
+    // artinya tambahkan sebuah event ketika tombol keyup(ketika kita mengetik sesuatu di input pencarian lalu melepaskan tombol keyboard) maka jalankan function yang akan menampilkan oke di console log
+
+-> jalankan Ajaxnya di element keyword yang sudah di tambahkan event, yang di dalamnya terdapat 2 cara:
+  1. xmlhttprequset
+  2. fetch
+
+  1. cara lama menggunakan xmlhttprequset
+    - buat variaberl untuk menampung sebuah objek Ajaxnya
+      // secara singkat ajax adalah bagaimana cara kita melakukan request terhadap sebuah sumber, sumbernya website lain -
+         tanpa melakukan refresh halaman, jadi yang terlihat hanyalah instant / Live
+    - kita panggil xhr.onreadystatechange() yang berisi function pengecekan
+    - siapkan Ajaxnya
+
+      xhr.open('get','ajax/ajax_cari.php');
+      // parameter pertama berisi methode apa yang akan digunakan
+      // parameter kedua berisi tujuan requestnya kemana
+
+    - jalankan Ajaxnya
+
+      xhr.send();
+
+-> kemudian yang akan dilakukan adalah mengambil apapun yang diketikkan dikolom pencarian, setiap tulisan
+   yang diketik dikolom pencarian akan dikirimkan ke file ajax_cari.php, dengan cara mengirim balik -
+   nilai keywordnya
+
+      // keyword.value adalah apa yang kita ketikan didalan kolom pencarian menjadi sebuah value dari-
+         keyword
+
+      // xhr.open('get','ajax/ajax_cari.php?keyword=' + keyword.value);
+
+-> kemudian kita tangkap di file ajax_cari.php 
+-> lalu tambahkan fungsi responseText di xhr untuk menerima kembali apapun yang ditangkap di file ajax_cari.php 
+
+    xhr.responseText;
+
+-> mengganti isi container tabel yang dibungkus dengan <div> dengan hasil dari reseposeText / hasil dari yang ditangkap -
+   file ajax_cari.php 
+-> beralih ke file ajax_cari.php, tujuan kita adalah mengganti isi dari mahasiswanya dengan pencarian yang kita ketik -
+   dikolom pencarian
+    1. menghubungkan file function.php 
+    2. megngisi variaberl mahasiswa dengan fungsi cari 
+    3. mengcopy tabel index.php yang akan menjadi bagian dari responseText
+
+-> kita hilangkan tombol cari dengan css dihalaman script,js
+
+-> cara kedua menggunakan methode fatch yang terdiri 3 baris saja
