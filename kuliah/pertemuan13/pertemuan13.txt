@@ -57,3 +57,5 @@ Ajax Live Search
 -> kita hilangkan tombol cari dengan css dihalaman script,js
 
 -> cara kedua menggunakan methode fatch yang terdiri 3 baris saja
+
+
