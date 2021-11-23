@@ -110,7 +110,7 @@ function upload()
   move_uploaded_file($tmp_file, 'img/' . $nama_file_baru);
 
 
-  return $nama_file_baru;
+  return $nama_file;
 }
 
 
