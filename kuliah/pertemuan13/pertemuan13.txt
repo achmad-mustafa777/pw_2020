@@ -59,3 +59,42 @@ Ajax Live Search
 -> cara kedua menggunakan methode fatch yang terdiri 3 baris saja
 
 
+Upload Gambar
+-> Memperbaiki tampilannya
+-> masuk kebagaian halaman tambahkan
+-> tambahkan atribut enctype="multipart/form-data" pada form tambah data agar Upload filenya berjalan, dengan menambahkan -
+   atribut tersebut akan memiliki akses ke super global baru yaitu $_FILE
+-> ubah bagian input gambar dibagian type menjadi "file"
+-> kemudian memperbaiki bagian fungsinya di halaman function.php 
+-> buat fungsi baru yaitu function upload yang terdiri dari:
+  - menangkap data file upload kemudian dimasukan ke dalam variaberl
+  - melakukan serangkaian pengecekan :
+    1. ketika gambar tidak dipilih atau kosong
+      - buat pengecekan di bagian fungsi tambah di bagian variabel gambar dengan return false jika tidak ada gambar
+    2. ketika yang diupload bukan file gambar
+      - cek ekstensi filenya
+      - buat variabel array yang berisi ekstensi file yang diizinkan untuk upload
+      - pecah nama_file gambar yang diupload dengan menggunakan fungsi explode();
+
+        explode('.',$nama_file);
+        //parameter pertama dipecah menggunakan titik
+        //parameter kedua string apa yang mau dipecah
+
+      - ubah semuanya menjadi huruf kecil lalu 
+      - lalu gunakan fungsi end() untuk mengambil bagian akhirnya
+      - lakukan pengecekan dengan menggunakan fungsi in_array() yang mengembalikan nilai true jika sebuah nilai yang -
+        dibandingkan ada di dalam aray tersebut, jika ada maka gambar bisa diupload
+    3. cek type filenya untuk menghindari script jahat
+    4. cek ukuran filenya
+
+  - lakuka  generate nama file baru untuk menghindari tumpang tindih, jika file yang diupload memiliki nama yang sama 
+      1. menambahkan variabel baru yang diisi dengan fungsi uniqid() bertujuan untuk membangkitkan bilangan  random
+      2. kita konkets dengan ekstensi file
+      3. lalu lakukan move_upload_file();
+
+         move_uploaded_file($tmp_file, 'img/' . $nama_file_baru);
+         // memindahkan file yang diupload dari tmp_file ke tempat penyimpanan yang diinginkan
+         // parameter pertama adalah tempat file tmp 
+         // parameter kedua adalah tempat penyimpanan yang kita inginkan  dan nama_file_baru
+
+
