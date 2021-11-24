@@ -76,7 +76,10 @@ if (isset($_POST['tambah'])) {
   </form>
 
   <br><br>
-  <a href="index.php"> kembali ke halaman</a>
+
+
+  <a href="index.php">Home</a>
+
 
 </body>
 

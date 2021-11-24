@@ -23,7 +23,59 @@ function query($query)
   return $rows;
 }
 
+function upload()
+{
+  $nama_file = $_FILES['gambar']['name'];
+  $tipe_file = $_FILES['gambar']['type'];
+  $tmp_file = $_FILES['gambar']['tmp_name'];
+  $error = $_FILES['gambar']['error'];
+  $ukuran = $_FILES['gambar']['size'];
 
+  if ($error == 4) {
+    echo "<script>
+          alert('gambar belum diupload, silahkan upload dulu!');
+          </script>";
+
+    return false;
+  }
+
+  $file_image = ['jpg', 'png', 'jpeg'];
+  $extense_file = explode('.', $nama_file);
+  $extense_file = strtolower(end($extense_file));
+
+  if (!in_array($extense_file, $file_image)) {
+    echo "<script>
+          alert('file yang diupload bukan image/foto ');
+          </script>";
+
+    return false;
+  }
+
+
+  //cek type file
+  if ($tipe_file != 'image/jpeg' && $tipe_file != 'image/png') {
+    echo "<script>
+          alert('file yang diupload tiruan/palsu ');
+          </script>";
+
+    return false;
+  }
+
+  //cek ukuran file
+  if ($ukuran > 3000000) {
+    echo "<script>
+          alert('file yang diupload harus dibawah 3MB ');
+          </script>";
+
+    return false;
+  }
+
+  $save_gambar = '/var/www/html/tmp_upload/pw2020/pw_2020/kuliah/pertemuan13/gambar1/';
+  $nama_baru = uniqid('T', true) . '.' . $extense_file;
+  move_uploaded_file($tmp_file, $save_gambar . $nama_baru);
+
+  return $nama_baru;
+}
 
 function tambah($data)
 {
@@ -48,71 +100,6 @@ function tambah($data)
 
   return mysqli_affected_rows($conn);
 }
-
-
-
-function upload()
-{
-  $nama_file = $_FILES['gambar']['name'];
-  $ukuran_file = $_FILES['gambar']['size'];
-  $tipe_file = $_FILES['gambar']['type'];
-  $error = $_FILES['gambar']['error'];
-  $tmp_file = $_FILES['gambar']['tmp_name'];
-
-
-
-  //ketika tidak ada gambar dipilih
-  if ($error == 4) {
-    echo "<script>
-          alert('pilih gambar terlebih dahuli');
-          </script>";
-
-    return false;
-  }
-
-
-  $daftar_gambar = ['jpg', 'jpeg', 'png'];
-  $ekstensi_file = explode('.', $nama_file);
-  $ekstensi_file = strtolower(end($ekstensi_file));
-
-  if (!in_array($ekstensi_file, $daftar_gambar)) {
-    echo "<script>
-          alert('yang diupload bukan gambar/foto');
-          </script>";
-
-    return false;
-  }
-
-  //cek type file
-  if ($tipe_file != 'image/jpeg' && $tipe_file != 'image/png' && $tipe_file != 'image/jpg') {
-    echo "<script>
-          alert('yang diupload bukan gambar/foto tapi script jahat');
-          </script>";
-
-    return false;
-  }
-
-  //cek ukuran file
-  //maksimal 1mb = 1000000 byte
-  if ($ukuran_file > 1000000) {
-    echo "<script>
-          alert('yang diupload terlalu besar ukurannya');
-          </script>";
-
-    return false;
-  }
-
-  //upload file
-  //generate new name
-  $nama_file_baru = uniqid();
-  $nama_file_baru .= '.';
-  $nama_file_baru .= $ekstensi_file;
-  move_uploaded_file($tmp_file, 'img/' . $nama_file_baru);
-
-
-  return $nama_file;
-}
-
 
 
 function hapus($id)
