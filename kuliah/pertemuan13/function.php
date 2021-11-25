@@ -32,11 +32,11 @@ function upload()
   $ukuran = $_FILES['gambar']['size'];
 
   if ($error == 4) {
-    echo "<script>
-          alert('gambar belum diupload, silahkan upload dulu!');
-          </script>";
+    // echo "<script>
+    //       alert('gambar belum diupload, silahkan upload dulu!');
+    //       </script>";
 
-    return false;
+    return 'no-poto.jpeg';
   }
 
   $file_image = ['jpg', 'png', 'jpeg'];
@@ -106,6 +106,14 @@ function hapus($id)
 {
   $conn = koneksi();
 
+  //menghapus gambar difolder
+  $mhs = query("SELECT * FROM mahasiswa WHERE id = $id");
+
+  if ($mhs['gambar'] != 'no-poto.jpeg') {
+
+    unlink('gambar1/' . $mhs['gambar']);
+  }
+
   mysqli_query($conn, "DELETE FROM mahasiswa WHERE id = $id") or die(mysqli_error($conn));
 
   return mysqli_affected_rows($conn);
@@ -120,7 +128,16 @@ function ubah($data)
   $nrp = htmlspecialchars($data['nrp']);
   $jurusan = htmlspecialchars($data['jurusan']);
   $email = htmlspecialchars($data['email']);
-  $gambar = htmlspecialchars($data['gambar']);
+  $gambar_lama = htmlspecialchars($data['gambar_lama']);
+
+  $gambar = upload();
+  if (!$gambar) {
+    return false;
+  }
+
+  if ($gambar == 'no-poto.jpeg') {
+    $gambar = $gambar_lama;
+  }
 
   $query = "UPDATE mahasiswa SET 
             Nama = '$nama',

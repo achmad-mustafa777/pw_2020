@@ -59,7 +59,8 @@ Ajax Live Search
 -> cara kedua menggunakan methode fatch yang terdiri 3 baris saja
 
 
-Upload Gambar
+Upload Gambar bagian ke satu 
+
 -> Memperbaiki tampilannya
 -> masuk kebagaian halaman tambahkan
 -> tambahkan atribut enctype="multipart/form-data" pada form tambah data agar Upload filenya berjalan, dengan menambahkan -
@@ -98,3 +99,39 @@ Upload Gambar
          // parameter kedua adalah tempat penyimpanan yang kita inginkan  dan nama_file_baru
 
 
+Upload Gambar bagian kedua
+
+-> memperbaiki tampilan dibagaian tambah.php 
+  1. tambahkan tag <img> untuk menambahkan gambar defaultny tujuannya agar user jika tidak -
+     ingin menambahkan fotonya.
+  2. tambahkan class pada tag input gambar dan img agar bisa terhubung ke javascript sehingga-
+     tampilannya bisa lebih interaktif
+  3. tambahkan juga event onchange yang nilainya adalah fungsi javascript
+  4. kemudian hubugnkan dengan file javascript yaitu js/script.js
+
+-> buat fungsi baru di file script.js
+  1. buat fungsi previewImage() yang terdiri dari:
+    - tangkap class gambarnya dan img src nya 
+    - panggil class fileReader() untuk membaca file yang akan kita upload kemudian filenya -
+      disimpan untuk menggantikan file img src no-photo dengan file upload yang baru 
+
+-> perbaiki bagian file function.php 
+  1. perbaiki dibagaian fungsi upload dibagian pengecekan ketika gambar tidak diisi atau diupload-
+     ubah nilai returnnya dari false ke nama gambar defaultnya
+
+-> perbaiki tampilan di file ubah.php 
+  1. ubah input gambar menjadi upload gambar seperti tampilan bagian tambah.php 
+  2. dibagaian link img src, ganti dengan gambar yang sudah ada di databases
+  3. tambahkan tag input dengan type hidden dan nama gamba_lama dengan value adalah gambar lama didatabases-
+     tujuannya jika user tidak ingin mengubah gambar lamanya
+  4. hubugnkan denga file javascript
+
+-> perbaiaki lagi dibagaian function.php 
+  1. perbaiki dibagaian fungsi ubah
+  2. buat pengecekan jika user tidak ingin mengganti gambar lamanya
+
+-> edit kembali di bagaian fungsi hapus gambar
+  1. tujuannya untuk menghapus di folder yang menyimpan gambar, karena selama ini yang dihapus hanyalah-
+     dibagaian penyimpanan databases
+  2. buat pengecekan penghapusan agar yang dihapus bukan gambar defaultnya, untuk menghapus gambar di folder -
+     menggunakan fungsi unlink(); 
